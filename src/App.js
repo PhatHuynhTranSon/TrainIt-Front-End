@@ -9,6 +9,7 @@ import { CloseIcon } from "./components/icon";
 
 import ProjectNameSection from "./pages/home/projectnamesection";
 import ProjectDescSection from './pages/home/projectdescriptionsection';
+import ProjectTypeSection from './pages/home/projecttypesection';
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -16,6 +17,7 @@ function App() {
   //Project info
   const [projectName, setProjectName] = React.useState("");
   const [projectDesc, setProjectDesc] = React.useState("");
+  const [projectType, setProjectType] = React.useState("");
 
   //Current flow
   const [currentSection, setCurrentSection] = React.useState("");
@@ -37,6 +39,11 @@ function App() {
 
   function onProjectDescSubmitted(desc) {
     setProjectDesc(desc);
+    setCurrentSection("type");
+  }
+
+  function onProjectTypeSubmitted(type) {
+    setProjectType(type);
   }
 
   function getCurrentSection() {
@@ -45,11 +52,12 @@ function App() {
         return <ProjectNameSection onProjectNameSubmitted={onProjectNameSubmitted}/>;
       case "desc":
         return <ProjectDescSection onProjectDescSubmitted={onProjectDescSubmitted}/>;
+      case "type":
+        return <ProjectTypeSection onProjectTypeSubmitted={onProjectTypeSubmitted}/>;
       default:
         return <ProjectNameSection onProjectNameSubmitted={onProjectNameSubmitted}/>;
     }
   }
-
 
   return (
     <React.Fragment>
