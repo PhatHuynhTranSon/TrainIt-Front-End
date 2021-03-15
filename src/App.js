@@ -8,17 +8,48 @@ import { Heading, SmallHeading, SubHeading } from "./components/typography";
 import { CloseIcon } from "./components/icon";
 
 import ProjectNameSection from "./pages/home/projectnamesection";
+import ProjectDescSection from './pages/home/projectdescriptionsection';
 
 function App() {
   const [open, setOpen] = React.useState(false);
+
+  //Project info
+  const [projectName, setProjectName] = React.useState("");
+  const [projectDesc, setProjectDesc] = React.useState("");
+
+  //Current flow
+  const [currentSection, setCurrentSection] = React.useState("");
 
   function openPanel() {
     setOpen(true);
   }
 
   function closePanel() {
+    setCurrentSection("name");
     setOpen(false);
   }
+
+  //Project section input handlers
+  function onProjectNameSubmitted(name) {
+    setProjectName(name);
+    setCurrentSection("desc");
+  }
+
+  function onProjectDescSubmitted(desc) {
+    setProjectDesc(desc);
+  }
+
+  function getCurrentSection() {
+    switch(currentSection) {
+      case "name":
+        return <ProjectNameSection onProjectNameSubmitted={onProjectNameSubmitted}/>;
+      case "desc":
+        return <ProjectDescSection onProjectDescSubmitted={onProjectDescSubmitted}/>;
+      default:
+        return <ProjectNameSection onProjectNameSubmitted={onProjectNameSubmitted}/>;
+    }
+  }
+
 
   return (
     <React.Fragment>
@@ -46,7 +77,7 @@ function App() {
             </SmallHeading>
           </div>
 
-          <ProjectNameSection/>
+          { getCurrentSection() }
         </SlidingPanel>
       </Background>
     </React.Fragment>

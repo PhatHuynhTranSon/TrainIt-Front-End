@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
 
 
 const useStyles = makeStyles({
@@ -24,10 +25,15 @@ function MyTextField(props) {
                     fontSize: "1.5rem"
                 }
             }}
+            onChange={props.onChange}
             >
             { props.children }
         </TextField>
     )
+}
+
+MyTextField.propTypes = {
+    onChange: PropTypes.func.isRequired
 }
 
 export default MyTextField;

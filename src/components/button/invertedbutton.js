@@ -10,7 +10,7 @@ function InvertedButton(props) {
                 display: "inline-block",
                 width: "5rem"
             }}
-            variant="Contained"
+            variant="contained"
             size="large"
             {...props}>
             { props.children }

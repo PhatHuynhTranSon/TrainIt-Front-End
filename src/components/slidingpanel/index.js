@@ -15,7 +15,7 @@ function SlidingPanel(props) {
         <Drawer
             anchor="right"
             open={props.open}
-            onClose={props.open}
+            onClose={props.onClose}
             classes={{ paper: classes.paper }}>
             { props.children }
         </Drawer>
