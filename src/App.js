@@ -1,11 +1,13 @@
 import React from 'react';
 import Background from './components/background';
-import Button from './components/button';
+import { Button } from './components/button';
 import SlidingPanel from './components/slidingpanel';
 import GlobalStyle from './components/styles/global';
-import { Heading, SubHeading } from "./components/typography";
 
+import { Heading, SmallHeading, SubHeading } from "./components/typography";
 import { CloseIcon } from "./components/icon";
+
+import ProjectNameSection from "./pages/home/projectnamesection";
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -35,11 +37,16 @@ function App() {
         <SlidingPanel
           open={open}
           onClose={() => closePanel()}>
-          <div>
+
+          <div style={{ position: "relative" }}>
             <CloseIcon
               onClick={() => closePanel()}/>
-            Create project
+            <SmallHeading>
+              Create a project
+            </SmallHeading>
           </div>
+
+          <ProjectNameSection/>
         </SlidingPanel>
       </Background>
     </React.Fragment>
