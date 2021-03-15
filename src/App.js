@@ -8,8 +8,9 @@ import { Heading, SmallHeading, SubHeading } from "./components/typography";
 import { CloseIcon } from "./components/icon";
 
 import ProjectNameSection from "./pages/home/projectnamesection";
-import ProjectDescSection from './pages/home/projectdescriptionsection';
-import ProjectTypeSection from './pages/home/projecttypesection';
+import ProjectDescSection from "./pages/home/projectdescriptionsection";
+import ProjectTypeSection from "./pages/home/projecttypesection";
+import ProjectDataSection from "./pages/home/projectdatasection";
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -18,6 +19,7 @@ function App() {
   const [projectName, setProjectName] = React.useState("");
   const [projectDesc, setProjectDesc] = React.useState("");
   const [projectType, setProjectType] = React.useState("");
+  const [projectFile, setProjectFile] = React.useState("");
 
   //Current flow
   const [currentSection, setCurrentSection] = React.useState("");
@@ -44,6 +46,11 @@ function App() {
 
   function onProjectTypeSubmitted(type) {
     setProjectType(type);
+    setCurrentSection("file");
+  }
+
+  function onFileSubmitted(file) {
+    setProjectFile(file);
   }
 
   function getCurrentSection() {
@@ -54,6 +61,8 @@ function App() {
         return <ProjectDescSection onProjectDescSubmitted={onProjectDescSubmitted}/>;
       case "type":
         return <ProjectTypeSection onProjectTypeSubmitted={onProjectTypeSubmitted}/>;
+      case "file":
+        return <ProjectDataSection onFileSubmitted={onFileSubmitted}/>
       default:
         return <ProjectNameSection onProjectNameSubmitted={onProjectNameSubmitted}/>;
     }
