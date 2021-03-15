@@ -15,11 +15,15 @@ function ProjectTypeSection(props) {
         props.onProjectTypeSubmitted(projectType);
     }
 
+    function onProjectTypeSelected(type) {
+        setProjectType(type);
+    }
+
 
     return (
         <React.Fragment>
             <SectionHeading>What problem do you want to solve ?</SectionHeading>
-            <TypeInput/>
+            <TypeInput onTypeSelected={onProjectTypeSelected}/>
             <InvertedButton
                 onClick={onProjectTypeSubmitted}>
                 Next

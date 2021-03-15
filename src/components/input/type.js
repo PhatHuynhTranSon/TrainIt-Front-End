@@ -32,17 +32,23 @@ function TypeInput(props) {
 
     function chooseClassification() {
         setType("classification");
+        onTypeSelected("classification");
     }
 
     function chooseRegression() {
         setType("regression");
+        onTypeSelected("regression");
+    }
+
+    function onTypeSelected(type) {
+        props.onTypeSelected(type);
     }
 
     return (
         <Grid container spacing={2} style={{ marginBottom: "10px" }}>
             <Grid item style={{ width: "30%" }}>
                 <Card 
-                    classes={{ root: type == "classification" ? classes.chosenCard : classes.unchosenCard }}
+                    classes={{ root: type === "classification" ? classes.chosenCard : classes.unchosenCard }}
                     onClick={() => chooseClassification()}>
                     <CardActionMedia>
                         <CardMedia
@@ -64,7 +70,7 @@ function TypeInput(props) {
 
             <Grid item style={{width: "30%"}}>
                 <Card 
-                    classes={{ root: type == "regression" ? classes.chosenCard : classes.unchosenCard }}
+                    classes={{ root: type === "regression" ? classes.chosenCard : classes.unchosenCard }}
                     onClick={() => chooseRegression()}>
                     <CardActionMedia>
                         <CardMedia
