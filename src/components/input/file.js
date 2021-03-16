@@ -36,9 +36,18 @@ const useStyles = makeStyles({
 function FileInput(props) {
     const classes = useStyles();
 
+    function onFileChanged(event) {
+        const file = event.target.files[0];
+        props.onFileChanged(file);
+    }
+
     return (
         <React.Fragment>
-            <InputStyle type="file" id="data-file" name="data-file"/>
+            <InputStyle 
+                type="file" 
+                id="data-file" 
+                name="data-file"
+                onChange={onFileChanged}/>
             <label htmlFor="data-file">
                 <FileStyle>
                     <FileLabelGroup>
@@ -54,7 +63,7 @@ function FileInput(props) {
 }
 
 FileInput.propTypes = {
-    onFileSubmitted: PropTypes.func.isRequired
+    onFileChanged: PropTypes.func.isRequired
 }
 
 export default FileInput;
