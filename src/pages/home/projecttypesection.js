@@ -8,7 +8,7 @@ import TypeInput from "../../components/input/type";
 
 function ProjectTypeSection(props) {
     //State to hold input
-    const [projectType, setProjectType] = React.useState('');
+    const [projectType, setProjectType] = React.useState("classification");
 
     //Handle user input
     function onProjectTypeSubmitted() {
@@ -25,7 +25,7 @@ function ProjectTypeSection(props) {
             <SectionHeading>What problem do you want to solve ?</SectionHeading>
             <TypeInput onTypeSelected={onProjectTypeSelected}/>
             <InvertedButton
-                onClick={onProjectTypeSubmitted}>
+                onClick={() => onProjectTypeSubmitted()}>
                 Next
             </InvertedButton>
         </React.Fragment>

@@ -11,6 +11,9 @@ import ProjectNameSection from "./pages/home/projectnamesection";
 import ProjectDescSection from "./pages/home/projectdescriptionsection";
 import ProjectTypeSection from "./pages/home/projecttypesection";
 import ProjectDataSection from "./pages/home/projectdatasection";
+import ProjectIsLoading from "./components/loading";
+
+import { createProject as createMLProject } from "./api";
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -20,6 +23,9 @@ function App() {
   const [projectDesc, setProjectDesc] = React.useState("");
   const [projectType, setProjectType] = React.useState("");
   const [projectFile, setProjectFile] = React.useState("");
+
+  const [isUploadingProject, setIsProjectUploading] = React.useState(false);
+  const [isProjectUploaded, setIsProjectUploaded] = React.useState(false);
 
   //Current flow
   const [currentSection, setCurrentSection] = React.useState("");
@@ -51,6 +57,35 @@ function App() {
 
   function onFileSubmitted(file) {
     setProjectFile(file);
+    createProject();
+  }
+
+  function createProject() {
+    const formData = createFormData();
+
+    setIsProjectUploading(true);
+    createMLProject(formData)
+      .then(response => {
+        console.log("Uploaded");
+        setIsProjectUploaded(true);
+        setIsProjectUploading(false);
+      })
+      .catch(error => {
+        //TODO: Error handling
+        console.log(error.response.data);
+        setIsProjectUploading(false);
+      });
+  }
+
+  function createFormData() {
+    const formData = new FormData();
+
+    formData.append("project_name", projectName);
+    formData.append("project_description", projectDesc);
+    formData.append("project_type", projectType);
+    formData.append("project_data", projectFile);
+
+    return formData;
   }
 
   function getCurrentSection() {
@@ -94,7 +129,7 @@ function App() {
             </SmallHeading>
           </div>
 
-          { getCurrentSection() }
+          { isUploadingProject ? <ProjectIsLoading /> : getCurrentSection() }
         </SlidingPanel>
       </Background>
     </React.Fragment>

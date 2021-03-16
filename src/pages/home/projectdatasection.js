@@ -22,7 +22,6 @@ function ProjectDataSection(props) {
         getDataPreview(formData)
             .then(response => {
                 const data = response.data;
-                console.log(data);
                 setFilePreview(data);
             })
             .catch(error => {
@@ -52,7 +51,7 @@ function ProjectDataSection(props) {
             }
 
             <InvertedButton
-                onClick={props.onFileSubmitted(file)}>
+                onClick={() => props.onFileSubmitted(file)}>
                 Upload
             </InvertedButton>
         </React.Fragment>
