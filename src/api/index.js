@@ -1,7 +1,8 @@
 import { getDataPreview } from "./preview";
-import { createProject } from "./project";
+import { createProject, getProjectDetails } from "./project";
 
 export {
     getDataPreview,
-    createProject
+    createProject,
+    getProjectDetails
 }

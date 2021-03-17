@@ -13,3 +13,9 @@ export function createProject(formData) {
         }
     );
 }
+
+export function getProjectDetails(projectId) {
+    return axios.get(
+        ROOT_URL + `/projects/${projectId}`
+    );
+}
