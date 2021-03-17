@@ -6,8 +6,15 @@ flask-sagemaker is aspired to be an online Machine Learning training platform fo
 The project relies on AWS for computation resources.
 
 ## Plan (front-end)
-- [ ] Model creation page (important - working on this)
+- [x] Model creation page (important - done)
+- [x] Model detail page (important - working on this)
 - [ ] Model evaluation page (important)
 - [ ] Model deployment page (optional)
 - [ ] Home page
 - [ ] Sign up / Log in page 
+
+## Run the project
+Use the command: 
+'''
+npm run start
+'''

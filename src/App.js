@@ -72,7 +72,6 @@ function App() {
       })
       .catch(error => {
         //TODO: Error handling
-        console.log(error.response.data);
         setIsProjectUploading(false);
       });
   }
