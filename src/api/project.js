@@ -19,3 +19,9 @@ export function getProjectDetails(projectId) {
         ROOT_URL + `/projects/${projectId}`
     );
 }
+
+export function getProjectSolutions(projectId) {
+    return axios.get(
+        ROOT_URL + `/projects/${projectId}/solutions`
+    );
+}

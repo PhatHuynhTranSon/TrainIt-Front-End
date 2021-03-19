@@ -6,9 +6,11 @@ import styled from "styled-components";
 
 import { getProjectDetails } from "../../api";
 
-import ProjectName from "./projectname";
-import Section from "../project/section";
-import MyTable from "../../components/table";
+import ProjectName from "./projectname"
+import MyTabs from "../../components/tab/tab";
+import { MyTabPanel } from "../../components/tab";
+import Summary from "./summary";
+import SolutionDetails from "./solutions";
 
 const ProjectDetailsWrapperStyle = styled.div`
     padding: 2rem;
@@ -21,6 +23,7 @@ function ProjectDetails(props) {
 
     //Project details states
     const [projectDetails, setProjectDetails] = React.useState(null);
+    const [currentTab, setCurrentTab] = React.useState(0);
 
     //Get project details
     React.useEffect(() => {
@@ -29,9 +32,15 @@ function ProjectDetails(props) {
                 setProjectDetails(response.data);
             })
             .catch(error => {
+                //TODO: Error handling
                 console.log(error);
             });
-    });
+    }, []);
+
+    //Handle user input
+    function onTabChange(event, newValue) {
+        setCurrentTab(newValue);
+    }
 
     return (
         projectDetails ? 
@@ -40,16 +49,21 @@ function ProjectDetails(props) {
                 projectName={projectDetails.project.name}
                 projectType={projectDetails.project.type}/>
 
-            <Section title="Description">
-                <p>{ projectDetails.project.description }</p>
-            </Section>
+            <MyTabs 
+                headers={["Summary", "Models", "Deployments"]}
+                value={currentTab}
+                handleChange={onTabChange}/>
 
-            <Section title="Data">
-                <MyTable 
-                    headers={projectDetails.data.headers}
-                    first_five={projectDetails.data.first_5}
-                    last_five={projectDetails.data.last_5}/>
-            </Section>
+            <MyTabPanel value={currentTab} index={0}>
+                <Summary 
+                    project={projectDetails.project}
+                    data={projectDetails.data}/>
+            </MyTabPanel>
+
+            <MyTabPanel value={currentTab} index={1}>
+                <SolutionDetails
+                    projectId={projectDetails.project.id}/>
+            </MyTabPanel>
         </ProjectDetailsWrapperStyle>
         : null
     )
