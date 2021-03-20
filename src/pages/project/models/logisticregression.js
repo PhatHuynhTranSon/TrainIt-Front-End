@@ -58,7 +58,7 @@ function LogisticRegressionModel(props) {
                 onChange={onTestSizeChange}/>
 
             <PurpleSubHeading>
-                Choose the random state
+                Choose random state
             </PurpleSubHeading>
             <SmallDescription>
                 This random state is used when splitting the data randomly. This can be set for more reproducible result.
