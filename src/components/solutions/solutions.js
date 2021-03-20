@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import SolutionShortenedDetails from "./solutionshort";
+import SolutionDetails from "./solution";
+
 
 function Solutions(props) {
     const { solutions } = props;
@@ -10,7 +11,7 @@ function Solutions(props) {
         <React.Fragment>
         {
             solutions.map((solution, index) => {
-                return <SolutionShortenedDetails solution={solution} key={index}/>
+                return <SolutionDetails solution={solution}/>
             })
         }
         </React.Fragment>

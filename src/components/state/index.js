@@ -11,6 +11,7 @@ const StateStyle = styled.div`
     text-align: center;
     color: #515151;
     line-height: 9.5rem;
+    margin: 5px auto;
 `
 
 

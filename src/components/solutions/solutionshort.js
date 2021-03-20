@@ -23,21 +23,16 @@ function SolutionShortenedDetails(props) {
     const { solution } = props;
 
     return (
-        <Card>
-            <CardContent>
-                <Grid container>
-                    <Grid item xs={10}>
-                        <SolutionName>{ solution.solution.algorithm_name }</SolutionName>
-                        <JobName>{ solution.solution.job_name }</JobName>
-                    </Grid>
+        <Grid container>
+            <Grid item xs={10}>
+                <SolutionName>{ solution.solution.algorithm_name }</SolutionName>
+                <JobName>{ solution.solution.job_name }</JobName>
+            </Grid>
 
-                    <Grid item xs={2}>
-                        <SolutionState label={ solution.secondary_status }/>
-                    </Grid>
-                </Grid>
-                
-            </CardContent>
-        </Card>
+            <Grid item xs={2}>
+                <SolutionState label={ solution.secondary_status }/>
+            </Grid>
+        </Grid>
     )
 }
 

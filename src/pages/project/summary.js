@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import Section from "./section";
-import MyTable from "../../components/table";
+import DataTable from "../../components/table/datatable";
 
 function Summary(props) {
     return (
@@ -12,7 +12,7 @@ function Summary(props) {
                 </Section>
 
             <Section title="Data">
-                <MyTable 
+                <DataTable 
                     headers={props.data.headers}
                     first_five={props.data.first_5}
                     last_five={props.data.last_5}/>
