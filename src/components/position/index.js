@@ -1,16 +1,30 @@
 import styled from "styled-components";
 
 
-const MarginTopStyle = styled.div`
+const MarginTopLargeStyle = styled.div`
     margin-top: 3rem;
+`
+
+const MarginTopSmallStyle = styled.div`
+    margin-top: 1rem;
 `
 
 export function MarginTopLarge(props) {
     return (
-        <MarginTopStyle>
+        <MarginTopLargeStyle>
         {
             props.children
         }
-        </MarginTopStyle>
-    )
+        </MarginTopLargeStyle>
+    );
+}
+
+export function MarginTopSmall(props) {
+    return (
+        <MarginTopSmallStyle>
+        {
+            props.children
+        }
+        </MarginTopSmallStyle>
+    );
 }

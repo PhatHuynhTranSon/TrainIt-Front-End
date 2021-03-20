@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { makeStyles } from "@material-ui/core";
 
@@ -23,17 +24,23 @@ const LoadingLabelStyle = styled.h2`
     font-size: 1.5rem;
 `;
 
-function ProjectIsLoading(props) {
+function Loading(props) {
     const classes = useStyles();
 
     return (
         <LoadingWrapperStyle>
             <LinearProgress classes={{root: classes.root}}/>
             <LoadingLabelStyle>
-                Creating project
+            {
+                props.label
+            }
             </LoadingLabelStyle>
         </LoadingWrapperStyle>
     )
 }
 
-export default ProjectIsLoading;
+Loading.propTypes = {
+    label: PropTypes.string.isRequired
+}
+
+export default Loading;

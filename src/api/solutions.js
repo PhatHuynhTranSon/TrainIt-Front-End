@@ -14,3 +14,10 @@ export function getSolutionsWithIds(projectId, solutionIds) {
     const promiseArray = solutionIds.map(solutionId => getSolutionWithId(projectId, solutionId));
     return Promise.all(promiseArray);
 }
+
+export function createSolution(projectId, args) {
+    return axios.post(
+        ROOT_URL + `/projects/${projectId}/solutions`,
+        args
+    );
+}

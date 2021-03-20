@@ -13,6 +13,7 @@ import SlidingPanel from "../../components/slidingpanel";
 import { CloseIcon } from "../../components/icon";
 import { SmallHeading } from "../../components/typography";
 import ClassificationSolutionCreation from "./models/classificationsolutions";
+import Loading from "../../components/loading";
 
 function SolutionDetails(props) {
     const { project } = props;
@@ -22,11 +23,25 @@ function SolutionDetails(props) {
     const intervalId = React.useRef();
     const previousSolutions = React.useRef([]);
     const [solutions, setSolutions] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
 
     //Solution creation
     const [isSlidingPanelOpen, setSlidingPanelOpen] = React.useState(false);
 
     React.useEffect(() => {
+        getSolutions();
+    }, []);
+
+    function getSolutions() {
+        //Stop retrieving solutions
+        if (intervalId.current) {
+            stopRetrievingSolutions();
+        }
+
+        //Show loading icons
+        setLoading(true);
+
+        //Get solution and remove loading icons
         getProjectSolutions(project.id)
             .then(response => {
                 solutionIds.current = response.data.solution_ids;
@@ -35,8 +50,9 @@ function SolutionDetails(props) {
             })
             .catch(error => {
                 //TODO: Error handling
+                setLoading(false);
             })
-    }, []);
+    }
 
     function mergeSolutions(previousSolutions, currentSolutions) {
         const currentSolutionIds = currentSolutions.map(solution => solution.solution.id);
@@ -76,9 +92,13 @@ function SolutionDetails(props) {
 
                 //Set the solution ids for next iteration
                 solutionIds.current = runningSolutionIds;
+
+                //Set loading to false
+                setLoading(false);
             })
             .catch(error => {
                 //TODO: Error handling
+                setLoading(false);
             });
     }
 
@@ -100,6 +120,22 @@ function SolutionDetails(props) {
         return project.type === "classification";
     }
 
+    //Handling solution creation
+    function onSolutionCreated(solution) {
+        //Close sliding panel
+        setSlidingPanelOpen(false);
+
+        //Get solution id and add to solution id
+        getSolutions();
+    }
+
+    function onSolutionError(error) {
+        //Close sliding panel
+        setSlidingPanelOpen(false);
+        
+        //TODO: Display error
+    }
+
     return (
         <React.Fragment>
             <Section title="Models">
@@ -107,7 +143,9 @@ function SolutionDetails(props) {
             <InvertedButton
                 onClick={onButtonClick}>Create a solution</InvertedButton>
             {
-                solutions ? <Solutions solutions={solutions}/> : null //TODO: Loading state
+                loading ? 
+                <Loading label="Retrieving solutions"/> :
+                (solutions ? <Solutions solutions={solutions}/> : null)//TODO: Loading state
             }
             </Section>
 
@@ -122,7 +160,10 @@ function SolutionDetails(props) {
 
                 {
                     isClassificationProject() ?
-                    <ClassificationSolutionCreation /> :
+                    <ClassificationSolutionCreation 
+                        project={project}
+                        onSolutionCreatedSuccessfully={onSolutionCreated}
+                        onSolutionCreatedError={onSolutionError}/> :
                     null
                 }
             </SlidingPanel>

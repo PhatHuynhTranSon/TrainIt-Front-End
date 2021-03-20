@@ -24,7 +24,7 @@ function MyVerticalTab(props) {
 MyVerticalTab.propTypes = {
     headers: PropTypes.array.isRequired,
     value: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired
 }
 
 export default MyVerticalTab;

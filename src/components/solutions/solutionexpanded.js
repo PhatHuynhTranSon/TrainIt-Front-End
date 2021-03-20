@@ -29,8 +29,7 @@ function SolutionExpandedDetails(props) {
     const { solution } = props;
 
     function isSolutionCompleted() {
-        console.log(solution.secondary_status);
-        return solution.main_status === "Completed";
+        return solution.secondary_status === "Completed";
     }
 
     function extractMetrics(solution) {
