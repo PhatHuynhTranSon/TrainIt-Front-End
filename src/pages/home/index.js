@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  Redirect
+} from "react-router-dom";
+
 import Background from '../../components/background';
 import { Button } from '../../components/button';
 import SlidingPanel from '../../components/slidingpanel';
@@ -10,7 +14,7 @@ import ProjectNameSection from "../../pages/home/projectnamesection";
 import ProjectDescSection from "../../pages/home/projectdescriptionsection";
 import ProjectTypeSection from "../../pages/home/projecttypesection";
 import ProjectDataSection from "../../pages/home/projectdatasection";
-import ProjectIsLoading from "../../components/loading";
+import Loading from "../../components/loading";
 
 import { createProject as createMLProject } from "../../api";
 
@@ -22,6 +26,10 @@ function HomePage() {
   const [projectDesc, setProjectDesc] = React.useState("");
   const [projectType, setProjectType] = React.useState("");
   const [projectFile, setProjectFile] = React.useState("");
+
+  //Project after creation
+  const projectFileRef = React.useRef();
+  const projectRef = React.useRef();
 
   const [isUploadingProject, setIsProjectUploading] = React.useState(false);
   const [isProjectUploaded, setIsProjectUploaded] = React.useState(false);
@@ -56,6 +64,7 @@ function HomePage() {
 
   function onFileSubmitted(file) {
     setProjectFile(file);
+    projectFileRef.current = file;
     createProject();
   }
 
@@ -65,12 +74,14 @@ function HomePage() {
     setIsProjectUploading(true);
     createMLProject(formData)
       .then(response => {
-        console.log("Uploaded");
+        //Set project 
+        projectRef.current = response.data;
         setIsProjectUploaded(true);
         setIsProjectUploading(false);
       })
       .catch(error => {
         //TODO: Error handling
+        console.log(error.response.data);
         setIsProjectUploading(false);
       });
   }
@@ -81,7 +92,7 @@ function HomePage() {
     formData.append("project_name", projectName);
     formData.append("project_description", projectDesc);
     formData.append("project_type", projectType);
-    formData.append("project_data", projectFile);
+    formData.append("project_data", projectFileRef.current);
 
     return formData;
   }
@@ -125,7 +136,11 @@ function HomePage() {
           </SmallHeading>
         </div>
 
-        { isUploadingProject ? <ProjectIsLoading /> : getCurrentSection() }
+        { 
+          isProjectUploaded ?
+          <Redirect to={`/projects/${projectRef.current.project.id}`}/> : 
+          (isUploadingProject ? <Loading label="Creating project"/> : getCurrentSection()) 
+        }
       </SlidingPanel>
     </Background>
   );

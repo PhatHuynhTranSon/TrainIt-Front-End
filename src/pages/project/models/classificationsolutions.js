@@ -7,6 +7,7 @@ import { MyTabPanel, MyVerticalTabs } from "../../../components/tab";
 import LogisticRegressionModel from "./logisticregression";
 
 import { createSolution } from "../../../api"; 
+import Loading from "../../../components/loading";
 
 const OuterWrapper = styled.div`
     padding: 3rem 0;
@@ -19,24 +20,34 @@ const InnerWrapper = styled.div`
 function ClassificationSolutionCreation(props) {
     //Project from props
     const { project } = props;
+
     //Value of tabs
     const [value, setValue] = React.useState(0);
+    const [loading, setLoading] = React.useState(false);
 
     function switchTab(event, newValue) {
         setValue(newValue);
     }
 
     function onSubmitted(args) {
+        //Display loading icon
+        setLoading(true);
+
         //Make request to API
         createSolution(project.id, args)
             .then(response => {
                 const data = response.data;
                 onSuccess(data);
+
+                //Remove loading icon
+                setLoading(false);
             })
             .catch(error => {
-                console.log(error);
                 const errorMessage = error.response.data;
                 onError(errorMessage);
+
+                //Remove loading icon
+                setLoading(false);
             });
     }
 
@@ -50,35 +61,39 @@ function ClassificationSolutionCreation(props) {
 
     return (
         <OuterWrapper>
-            <Grid container>
-                <Grid item xs={2}>
-                    <MyVerticalTabs 
-                        headers={["Logistic Regression", "Naives Bayes", "Random Forest"]}
-                        value={value}
-                        handleChange={switchTab}/>
+            {
+                loading ?
+                <Loading label="Creating solution"/> : 
+                <Grid container>
+                    <Grid item xs={2}>
+                        <MyVerticalTabs 
+                            headers={["Logistic Regression", "Naives Bayes", "Random Forest"]}
+                            value={value}
+                            handleChange={switchTab}/>
+                    </Grid>
+
+                    <Grid item xs={10}>
+                        <MyTabPanel value={value} index={0}>
+                            <InnerWrapper>
+                                <LogisticRegressionModel 
+                                    onSubmitted={onSubmitted}/>
+                            </InnerWrapper>
+                        </MyTabPanel>
+
+                        <MyTabPanel value={value} index={1}>
+                            <InnerWrapper>
+                                
+                            </InnerWrapper>
+                        </MyTabPanel>
+
+                        <MyTabPanel value={value} index={2}>
+                            <InnerWrapper>
+                                
+                            </InnerWrapper>
+                        </MyTabPanel>
+                    </Grid>
                 </Grid>
-
-                <Grid item xs={10}>
-                    <MyTabPanel value={value} index={0}>
-                        <InnerWrapper>
-                            <LogisticRegressionModel 
-                                onSubmitted={onSubmitted}/>
-                        </InnerWrapper>
-                    </MyTabPanel>
-
-                    <MyTabPanel value={value} index={1}>
-                        <InnerWrapper>
-                            
-                        </InnerWrapper>
-                    </MyTabPanel>
-
-                    <MyTabPanel value={value} index={2}>
-                        <InnerWrapper>
-                            
-                        </InnerWrapper>
-                    </MyTabPanel>
-                </Grid>
-            </Grid>
+            }
         </OuterWrapper>
     )
 }

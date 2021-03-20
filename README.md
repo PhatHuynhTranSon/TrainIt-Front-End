@@ -7,8 +7,9 @@ The project relies on AWS for computation resources.
 
 ## Plan (front-end)
 - [x] Model creation page (important - done)
-- [x] Model detail page (important - working on this)
-- [ ] Model evaluation page (important)
+- [x] Model detail page (important - done)
+- [x] Model evaluation page (important - partially done)
+- [ ] Model evaluation page - Graph (important - Working on this)
 - [ ] Model deployment page (optional)
 - [ ] Home page
 - [ ] Sign up / Log in page 

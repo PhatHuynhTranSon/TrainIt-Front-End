@@ -5,7 +5,7 @@ import { SectionHeading } from "../../components/typography";
 import FileInput from "../../components/input/file";
 
 import { getDataPreview } from "../../api";
-import MyTable from "../../components/table";
+import MyDataTable from "../../components/table/datatable";
 
 function ProjectDataSection(props) {
     const [file, setFile] = React.useState(null);
@@ -26,6 +26,8 @@ function ProjectDataSection(props) {
             })
             .catch(error => {
                 //TODO: Error handling
+                const errorData = error.response.data;
+                console.log(errorData);
             });
     }
 
@@ -43,7 +45,7 @@ function ProjectDataSection(props) {
 
             {
                 filePreview ? 
-                <MyTable
+                <MyDataTable
                     headers={filePreview.headers}
                     first_five={filePreview.first_5}
                     last_five={filePreview.last_5}/> 
