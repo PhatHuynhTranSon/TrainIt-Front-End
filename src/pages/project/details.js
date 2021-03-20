@@ -62,7 +62,7 @@ function ProjectDetails(props) {
 
             <MyTabPanel value={currentTab} index={1}>
                 <SolutionDetails
-                    projectId={projectDetails.project.id}/>
+                    project={projectDetails.project}/>
             </MyTabPanel>
         </ProjectDetailsWrapperStyle>
         : null

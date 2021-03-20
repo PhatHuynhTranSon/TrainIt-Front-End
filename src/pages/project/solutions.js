@@ -8,17 +8,26 @@ import {
 
 import Solutions from "../../components/solutions/solutions";
 import Section from "./section";
+import { InvertedButton } from "../../components/button";
+import SlidingPanel from "../../components/slidingpanel";
+import { CloseIcon } from "../../components/icon";
+import { SmallHeading } from "../../components/typography";
+import ClassificationSolutionCreation from "./models/classificationsolutions";
 
 function SolutionDetails(props) {
-    const { projectId } = props;
+    const { project } = props;
 
+    //Solutions
     const solutionIds = React.useRef();
     const intervalId = React.useRef();
     const previousSolutions = React.useRef([]);
     const [solutions, setSolutions] = React.useState([]);
 
+    //Solution creation
+    const [isSlidingPanelOpen, setSlidingPanelOpen] = React.useState(false);
+
     React.useEffect(() => {
-        getProjectSolutions(projectId)
+        getProjectSolutions(project.id)
             .then(response => {
                 solutionIds.current = response.data.solution_ids;
                 getSolutionDetails();
@@ -48,7 +57,7 @@ function SolutionDetails(props) {
 
     function getSolutionDetails() {
         //First get all solutions from solution id
-        getSolutionsWithIds(projectId, solutionIds.current)
+        getSolutionsWithIds(project.id, solutionIds.current)
             .then(responses => {
                 //Array of solution data
                 const solutionsData = responses.map(response => response.data);
@@ -82,19 +91,47 @@ function SolutionDetails(props) {
         clearInterval(intervalId.current);
     }
 
+    //Handle sliding panel
+    function onButtonClick() {
+        setSlidingPanelOpen(true);
+    }
+
+    function isClassificationProject() {
+        return project.type === "classification";
+    }
+
     return (
         <React.Fragment>
             <Section title="Models">
+
+            <InvertedButton
+                onClick={onButtonClick}>Create a solution</InvertedButton>
             {
                 solutions ? <Solutions solutions={solutions}/> : null //TODO: Loading state
             }
             </Section>
+
+            <SlidingPanel
+                open={isSlidingPanelOpen}
+                onClose={() => {}}>
+
+                <div style={{ position: "relative" }}>
+                    <CloseIcon onClick={() => setSlidingPanelOpen(false)}/>
+                    <SmallHeading>Create a solution</SmallHeading>
+                </div>
+
+                {
+                    isClassificationProject() ?
+                    <ClassificationSolutionCreation /> :
+                    null
+                }
+            </SlidingPanel>
         </React.Fragment>
     )
 }
 
 SolutionDetails.propTypes = {
-    projectId: PropTypes.number.isRequired
+    project: PropTypes.object.isRequired
 }
 
 export default SolutionDetails;
