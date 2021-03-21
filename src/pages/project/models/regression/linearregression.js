@@ -1,16 +1,16 @@
 import React from "react"
 import PropTypes from "prop-types";
 
-import MediumHeading from "../../../components/typography/mediumheading";
-import SmallDescription from "../../../components/typography/smalldescription";
-import Description from "../../../components/typography/description";
-import PurpleSubHeading from "../../../components/typography/purplesubheading";
-import InvertedButton from "../../../components/button/invertedbutton";
-import { MarginTopSmall } from "../../../components/position";
+import MediumHeading from "../../../../components/typography/mediumheading";
+import SmallDescription from "../../../../components/typography/smalldescription";
+import Description from "../../../../components/typography/description";
+import PurpleSubHeading from "../../../../components/typography/purplesubheading";
+import InvertedButton from "../../../../components/button/invertedbutton";
+import { MarginTopSmall } from "../../../../components/position";
 
 import { TextField } from "@material-ui/core";
 
-function LogisticRegressionModel(props) {
+function LinearRegressionModel(props) {
     const [testSize, setTestSize] = React.useState("0.2");
     const [randomState, setRandomState] = React.useState("42");
 
@@ -24,7 +24,7 @@ function LogisticRegressionModel(props) {
 
     function onSubmitted() {
         const args = {
-            "algorithm_name": "logistic_regression",
+            "algorithm_name": "linear_regression",
             "hyperparameters": {
                 "test-size": testSize,
                 "random-state": randomState
@@ -37,11 +37,11 @@ function LogisticRegressionModel(props) {
     return (
         <React.Fragment>
             <MediumHeading>
-                Logisitic Regression
+                Linear regression
             </MediumHeading>
 
             <Description>
-                This classis model predicts the class label using a sigmoid function.
+                This classic model assumes a linear relationship between the independent variables with dependent variable
             </Description>
 
             <PurpleSubHeading>
@@ -79,8 +79,8 @@ function LogisticRegressionModel(props) {
     )
 }
 
-LogisticRegressionModel.propTypes = {
+LinearRegressionModel.propTypes = {
     onSubmitted: PropTypes.func.isRequired
 }
 
-export default LogisticRegressionModel;
+export default LinearRegressionModel;

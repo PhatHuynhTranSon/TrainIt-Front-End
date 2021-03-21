@@ -3,11 +3,11 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { MyTabPanel, MyVerticalTabs } from "../../../components/tab";
-import LogisticRegressionModel from "./logisticregression";
+import { MyTabPanel, MyVerticalTabs } from "../../../../components/tab";
 
-import { createSolution } from "../../../api"; 
-import Loading from "../../../components/loading";
+import { createSolution } from "../../../../api"; 
+import Loading from "../../../../components/loading";
+import LinearRegressionModel from "./linearregression";
 
 const OuterWrapper = styled.div`
     padding: 3rem 0;
@@ -17,7 +17,7 @@ const InnerWrapper = styled.div`
     padding: 0 2rem;
 `
 
-function ClassificationSolutionCreation(props) {
+function RegressionSolutionCreation(props) {
     //Project from props
     const { project } = props;
 
@@ -67,7 +67,7 @@ function ClassificationSolutionCreation(props) {
                 <Grid container>
                     <Grid item xs={2}>
                         <MyVerticalTabs 
-                            headers={["Logistic Regression", "Naives Bayes", "Random Forest"]}
+                            headers={["Linear Regression", "XGBoost", "Decission Tree"]}
                             value={value}
                             handleChange={switchTab}/>
                     </Grid>
@@ -75,7 +75,7 @@ function ClassificationSolutionCreation(props) {
                     <Grid item xs={10}>
                         <MyTabPanel value={value} index={0}>
                             <InnerWrapper>
-                                <LogisticRegressionModel 
+                                <LinearRegressionModel
                                     onSubmitted={onSubmitted}/>
                             </InnerWrapper>
                         </MyTabPanel>
@@ -98,10 +98,10 @@ function ClassificationSolutionCreation(props) {
     )
 }
 
-ClassificationSolutionCreation.propTypes = {
+RegressionSolutionCreation.propTypes = {
     project: PropTypes.object.isRequired,
     onSolutionCreatedSuccessfully: PropTypes.func.isRequired,
     onSolutionCreatedError: PropTypes.func.isRequired
 }
 
-export default ClassificationSolutionCreation;
+export default RegressionSolutionCreation;

@@ -12,8 +12,9 @@ import { InvertedButton } from "../../components/button";
 import SlidingPanel from "../../components/slidingpanel";
 import { CloseIcon } from "../../components/icon";
 import { SmallHeading } from "../../components/typography";
-import ClassificationSolutionCreation from "./models/classificationsolutions";
+import ClassificationSolutionCreation from "./models/classification/classificationsolutions";
 import Loading from "../../components/loading";
+import RegressionSolutionCreation from "./models/regression/regressionsolutions";
 
 function SolutionDetails(props) {
     const { project } = props;
@@ -59,7 +60,6 @@ function SolutionDetails(props) {
 
         const previousExcludedSolutions = previousSolutions.filter(
             solution => { 
-                console.log(!currentSolutionIds.includes(solution.solution.id));
                 return !currentSolutionIds.includes(solution.solution.id);
             }
         );
@@ -164,7 +164,10 @@ function SolutionDetails(props) {
                         project={project}
                         onSolutionCreatedSuccessfully={onSolutionCreated}
                         onSolutionCreatedError={onSolutionError}/> :
-                    null
+                    <RegressionSolutionCreation
+                        project={project}
+                        onSolutionCreatedSuccessfully={onSolutionCreated}
+                        onSolutionCreatedError={onSolutionError}/>
                 }
             </SlidingPanel>
         </React.Fragment>
