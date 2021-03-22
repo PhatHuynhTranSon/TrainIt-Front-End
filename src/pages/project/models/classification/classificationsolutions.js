@@ -8,6 +8,7 @@ import LogisticRegressionModel from "./logisticregression";
 
 import { createSolution } from "../../../../api"; 
 import Loading from "../../../../components/loading";
+import NaiveBayesModel from "./naivebayes";
 
 const OuterWrapper = styled.div`
     padding: 3rem 0;
@@ -15,7 +16,7 @@ const OuterWrapper = styled.div`
 
 const InnerWrapper = styled.div`
     padding: 0 2rem;
-`
+`;
 
 function ClassificationSolutionCreation(props) {
     //Project from props
@@ -82,7 +83,8 @@ function ClassificationSolutionCreation(props) {
 
                         <MyTabPanel value={value} index={1}>
                             <InnerWrapper>
-                                
+                                <NaiveBayesModel 
+                                    onSubmitted={onSubmitted}/>
                             </InnerWrapper>
                         </MyTabPanel>
 
