@@ -9,6 +9,7 @@ import LogisticRegressionModel from "./logisticregression";
 import { createSolution } from "../../../../api"; 
 import Loading from "../../../../components/loading";
 import NaiveBayesModel from "./naivebayes";
+import DecisionTreeModel from "./decisiontree";
 
 const OuterWrapper = styled.div`
     padding: 3rem 0;
@@ -30,12 +31,37 @@ function ClassificationSolutionCreation(props) {
         setValue(newValue);
     }
 
+    function filterHyperparameters(hyperparameters) {
+        const newHyperparameters = {}
+
+        for (let key of Object.keys(hyperparameters)) {
+            if (hyperparameters[key] !== null) {
+                newHyperparameters[key] = hyperparameters[key];
+            }
+        }
+
+        return newHyperparameters;
+    }
+
+    function processArguments(args) {
+        //Get algorithm and parameters
+        const { algorithm_name, hyperparameters } = args;
+
+        return {
+            "algorithm_name": algorithm_name,
+            "hyperparameters": filterHyperparameters(hyperparameters)
+        }
+    }
+
     function onSubmitted(args) {
         //Display loading icon
         setLoading(true);
 
+        //Process arguments
+        const newArgs = processArguments(args);
+
         //Make request to API
-        createSolution(project.id, args)
+        createSolution(project.id, newArgs)
             .then(response => {
                 const data = response.data;
                 onSuccess(data);
@@ -90,7 +116,8 @@ function ClassificationSolutionCreation(props) {
 
                         <MyTabPanel value={value} index={2}>
                             <InnerWrapper>
-                                
+                                <DecisionTreeModel 
+                                    onSubmitted={onSubmitted}/>
                             </InnerWrapper>
                         </MyTabPanel>
                     </Grid>

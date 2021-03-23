@@ -68,7 +68,9 @@ function SolutionDetails(props) {
             ...previousExcludedSolutions, ...currentSolutions
         ];
 
-        return merged;
+        const sorted = merged.sort((a, b) => b.solution.id - a.solution.id);
+
+        return sorted;
     }
 
     function getSolutionDetails() {
