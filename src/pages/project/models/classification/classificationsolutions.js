@@ -94,7 +94,7 @@ function ClassificationSolutionCreation(props) {
                 <Grid container>
                     <Grid item xs={2}>
                         <MyVerticalTabs 
-                            headers={["Logistic Regression", "Naives Bayes", "Random Forest"]}
+                            headers={["Logistic Regression", "Naives Bayes", "Decision Tree"]}
                             value={value}
                             handleChange={switchTab}/>
                     </Grid>

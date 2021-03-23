@@ -68,6 +68,7 @@ function SolutionDetails(props) {
             ...previousExcludedSolutions, ...currentSolutions
         ];
 
+        //Sort based on IDs descending
         const sorted = merged.sort((a, b) => b.solution.id - a.solution.id);
 
         return sorted;

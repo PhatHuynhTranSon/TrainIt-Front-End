@@ -8,6 +8,7 @@ import { MyTabPanel, MyVerticalTabs } from "../../../../components/tab";
 import { createSolution } from "../../../../api"; 
 import Loading from "../../../../components/loading";
 import LinearRegressionModel from "./linearregression";
+import DecisionTreeModel from "./decisiontree";
 
 const OuterWrapper = styled.div`
     padding: 3rem 0;
@@ -29,12 +30,37 @@ function RegressionSolutionCreation(props) {
         setValue(newValue);
     }
 
+    function filterHyperparameters(hyperparameters) {
+        const newHyperparameters = {}
+
+        for (let key of Object.keys(hyperparameters)) {
+            if (hyperparameters[key] !== null) {
+                newHyperparameters[key] = hyperparameters[key];
+            }
+        }
+
+        return newHyperparameters;
+    }
+
+    function processArguments(args) {
+        //Get algorithm and parameters
+        const { algorithm_name, hyperparameters } = args;
+
+        return {
+            "algorithm_name": algorithm_name,
+            "hyperparameters": filterHyperparameters(hyperparameters)
+        }
+    }
+
     function onSubmitted(args) {
         //Display loading icon
         setLoading(true);
 
+        //Process arguments
+        const newArgs = processArguments(args);
+
         //Make request to API
-        createSolution(project.id, args)
+        createSolution(project.id, newArgs)
             .then(response => {
                 const data = response.data;
                 onSuccess(data);
@@ -67,7 +93,7 @@ function RegressionSolutionCreation(props) {
                 <Grid container>
                     <Grid item xs={2}>
                         <MyVerticalTabs 
-                            headers={["Linear Regression", "XGBoost", "Decission Tree"]}
+                            headers={["Linear Regression", "Decission Tree", "XGBoost"]}
                             value={value}
                             handleChange={switchTab}/>
                     </Grid>
@@ -82,7 +108,8 @@ function RegressionSolutionCreation(props) {
 
                         <MyTabPanel value={value} index={1}>
                             <InnerWrapper>
-                                
+                                <DecisionTreeModel 
+                                    onSubmitted={onSubmitted}/>
                             </InnerWrapper>
                         </MyTabPanel>
 
