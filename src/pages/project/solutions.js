@@ -15,6 +15,7 @@ import { SmallHeading } from "../../components/typography";
 import ClassificationSolutionCreation from "./models/classification/classificationsolutions";
 import Loading from "../../components/loading";
 import RegressionSolutionCreation from "./models/regression/regressionsolutions";
+import Graphs from "./graph";
 
 function SolutionDetails(props) {
     const { project } = props;
@@ -135,21 +136,23 @@ function SolutionDetails(props) {
     function onSolutionError(error) {
         //Close sliding panel
         setSlidingPanelOpen(false);
-        
         //TODO: Display error
     }
 
     return (
         <React.Fragment>
-            <Section title="Models">
+            <Section title="Visualization">
+                <Graphs type={project.type} solutions={solutions}/>
+            </Section>
 
-            <InvertedButton
-                onClick={onButtonClick}>Create a solution</InvertedButton>
-            {
-                loading ? 
-                <Loading label="Retrieving solutions"/> :
-                (solutions ? <Solutions solutions={solutions}/> : null)//TODO: Loading state
-            }
+            <Section title="Models">
+                <InvertedButton
+                    onClick={onButtonClick}>Create a solution</InvertedButton>
+                {
+                    loading ? 
+                    <Loading label="Retrieving solutions"/> :
+                    (solutions ? <Solutions solutions={solutions}/> : null)//TODO: Loading state
+                }
             </Section>
 
             <SlidingPanel
