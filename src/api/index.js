@@ -1,6 +1,8 @@
 import { getDataPreview } from "./preview";
 import { createProject, getProjectDetails, getProjectSolutions } from "./project";
 import { getSolutionsWithIds, createSolution } from "./solutions";
+import { getDeployment, deploy, undeploy } from "./deployment";
+
 
 export {
     getDataPreview,
@@ -8,5 +10,8 @@ export {
     getProjectDetails,
     getProjectSolutions,
     getSolutionsWithIds,
-    createSolution
+    createSolution,
+    getDeployment,
+    deploy, 
+    undeploy
 }

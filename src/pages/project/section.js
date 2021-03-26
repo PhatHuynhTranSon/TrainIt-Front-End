@@ -10,6 +10,9 @@ const useStyles = makeStyles({
     },
     card: {
         margin: "20px 0"
+    },
+    cardContent: {
+        padding: "30px"
     }
 })
 
@@ -21,7 +24,7 @@ function Section(props) {
             <CardHeader 
                 classes={{ root: classes.header }}
                 title={props.title}/>
-            <CardContent>
+            <CardContent classes={{root: classes.cardContent }}>
             {
                 props.children
             }

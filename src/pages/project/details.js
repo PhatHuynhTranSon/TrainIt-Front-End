@@ -11,6 +11,7 @@ import MyTabs from "../../components/tab/tab";
 import { MyTabPanel } from "../../components/tab";
 import Summary from "./summary";
 import SolutionDetails from "./solutions";
+import Deployment from "./deployment";
 
 const ProjectDetailsWrapperStyle = styled.div`
     padding: 2rem;
@@ -63,6 +64,10 @@ function ProjectDetails(props) {
             <MyTabPanel value={currentTab} index={1}>
                 <SolutionDetails
                     project={projectDetails.project}/>
+            </MyTabPanel>
+
+            <MyTabPanel value={currentTab} index={2}>
+                <Deployment project={projectDetails.project}/>
             </MyTabPanel>
         </ProjectDetailsWrapperStyle>
         : null
