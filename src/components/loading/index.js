@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 })
 
 const LoadingWrapperStyle = styled.div`
-    margin: 10rem auto;
+    margin: 5rem auto;
     width: 80%;
     display: flex;
     flex-direction: column;

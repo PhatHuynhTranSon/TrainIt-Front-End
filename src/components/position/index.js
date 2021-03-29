@@ -3,11 +3,16 @@ import styled from "styled-components";
 
 const MarginTopLargeStyle = styled.div`
     margin-top: 3rem;
-`
+`;
 
 const MarginTopSmallStyle = styled.div`
     margin-top: 1rem;
 `
+
+const Width50Style = styled.div`
+    width: 50%;
+    margin: auto;
+`;
 
 export function MarginTopLarge(props) {
     return (
@@ -27,4 +32,14 @@ export function MarginTopSmall(props) {
         }
         </MarginTopSmallStyle>
     );
+}
+
+export function Width50(props) {
+    return (
+        <Width50Style>
+        {
+            props.children
+        }
+        </Width50Style>
+    )
 }

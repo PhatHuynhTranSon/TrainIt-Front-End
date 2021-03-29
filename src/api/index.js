@@ -2,6 +2,7 @@ import { getDataPreview } from "./preview";
 import { createProject, getProjectDetails, getProjectSolutions } from "./project";
 import { getSolutionsWithIds, createSolution } from "./solutions";
 import { getDeployment, deploy, undeploy } from "./deployment";
+import { predictOnline } from "./prediction";
 
 
 export {
@@ -13,5 +14,6 @@ export {
     createSolution,
     getDeployment,
     deploy, 
-    undeploy
+    undeploy,
+    predictOnline
 }

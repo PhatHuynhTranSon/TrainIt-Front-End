@@ -9,12 +9,14 @@ import ColorStyle from "../../components/typography/color";
 import SmallDescription from "../../components/typography/smalldescription";
 import { InvertedButton } from "../../components/button";
 
+import Prediction from "./prediction";
+
 function inTransitionState(deployment) {
     return !(["OutOfService", "InService", "Failed"].includes(deployment.deployment.status));
 }
 
 function inService(deployment) {
-    return deployment.deployment.status == "InService"
+    return deployment.deployment && deployment.deployment.status == "InService"
 }
 
 function DeployedModel({ deployment, onUndeployModel }) {
@@ -37,7 +39,7 @@ function DeployedModel({ deployment, onUndeployModel }) {
                 
             }
         </React.Fragment>
-    )
+    );
 }
 
 function UndeployedModel({ onDeployChosen }) {
@@ -49,7 +51,7 @@ function UndeployedModel({ onDeployChosen }) {
             </SmallDescription>
             <InvertedButton onClick={onDeployChosen}>Deploy</InvertedButton>
         </React.Fragment>
-    )
+    );
 }
 
 function Deployment({ project }) {
@@ -135,6 +137,12 @@ function Deployment({ project }) {
                     <Loading label="Loading deployments"/>
                 }
             </Section>
+
+            {
+                (deployment && inService(deployment)) ?
+                <Prediction deployment={deployment.deployment}/> :
+                null
+            }
         </React.Fragment>
     )
 }

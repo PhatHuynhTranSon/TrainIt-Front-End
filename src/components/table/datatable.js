@@ -5,20 +5,10 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
+import StyledTableCell from "./index";
 
 import PropTypes from "prop-types";
 import React from "react";
-
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: "#7209b7",
-      color: "white",
-    },
-    body: {
-      fontSize: 14,
-    },
-}))(TableCell);
 
 const useStyles = makeStyles({
     tableWrapper: {
@@ -26,7 +16,6 @@ const useStyles = makeStyles({
         margin: "20px 0"
     }
 });
-
 
 function MyTable(props) {
     const classes = useStyles();
@@ -49,7 +38,7 @@ function MyTable(props) {
             {
                 headers.map((_, index) => {
                     return (
-                        <TableCell key={index}>...</TableCell>
+                        <StyledTableCell key={index}>...</StyledTableCell>
                     )
                 })
             }

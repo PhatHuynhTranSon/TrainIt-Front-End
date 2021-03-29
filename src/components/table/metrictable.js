@@ -10,15 +10,7 @@ import TableCell from "@material-ui/core/TableCell";
 import PropTypes from "prop-types";
 import React from "react";
 
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: "#7209b7",
-      color: "white",
-    },
-    body: {
-      fontSize: 14,
-    },
-}))(TableCell);
+import StyledTableCell from "./index";
 
 const useStyles = makeStyles({
     tableWrapper: {
