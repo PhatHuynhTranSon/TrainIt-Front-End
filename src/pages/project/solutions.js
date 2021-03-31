@@ -16,6 +16,10 @@ import ClassificationSolutionCreation from "./models/classification/classificati
 import Loading from "../../components/loading";
 import RegressionSolutionCreation from "./models/regression/regressionsolutions";
 import Graphs from "./graph";
+import MediumHeading from "../../components/typography/mediumheading";
+import { MarginTopLarge, MarginTopSmall } from "../../components/position";
+import Padding from "../../components/spacing/padding";
+import { Alert } from "@material-ui/lab";
 
 function SolutionDetails(props) {
     const { project } = props;
@@ -139,20 +143,40 @@ function SolutionDetails(props) {
         //TODO: Display error
     }
 
+    function filterForCompletedSolution() {
+        return solutions.filter(solution => {
+            return solution.status === "Completed"
+        });
+    }
+
+    const completedSolutions = filterForCompletedSolution();
+
     return (
         <React.Fragment>
             <Section title="Visualization">
-                <Graphs type={project.type} solutions={solutions}/>
+                <Padding padding="10px">
+                {
+                    loading ? 
+                    <Loading label="Retrieving graphs"/> : 
+                    (
+                        completedSolutions.length > 0 ?
+                        <Graphs type={project.type} solutions={solutions}/> :
+                        <Alert severity="warning">No models have been trained</Alert>
+                    )
+                }
+                </Padding>
             </Section>
 
             <Section title="Models">
                 <InvertedButton
                     onClick={onButtonClick}>Create a solution</InvertedButton>
+                <MarginTopSmall>
                 {
                     loading ? 
                     <Loading label="Retrieving solutions"/> :
-                    (solutions ? <Solutions solutions={solutions}/> : null)//TODO: Loading state
+                    (solutions && solutions.length > 0 ? <Solutions solutions={solutions}/> : <Alert severity="warning">No models have been trained</Alert>)//TODO: Loading state
                 }
+                </MarginTopSmall>
             </Section>
 
             <SlidingPanel

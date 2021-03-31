@@ -10,6 +10,7 @@ import SmallDescription from "../../components/typography/smalldescription";
 import { InvertedButton } from "../../components/button";
 
 import Prediction from "./prediction";
+import { Alert } from "@material-ui/lab";
 
 function inTransitionState(deployment) {
     return !(["OutOfService", "InService", "Failed"].includes(deployment.deployment.status));
@@ -57,6 +58,7 @@ function UndeployedModel({ onDeployChosen }) {
 function Deployment({ project }) {
     //Inner state
     const [deployment, setDeployment] = React.useState(null);
+    const [error, setError] = React.useState(null);
 
     //Refs
     const intervalId = React.useRef(null);
@@ -68,6 +70,7 @@ function Deployment({ project }) {
 
     //Method to deploy and undeploy model
     function startDeploymentInterval() {
+        updateDeployment();
         intervalId.current = setInterval(() => {
             updateDeployment();
         }, 50000);
@@ -106,6 +109,13 @@ function Deployment({ project }) {
             })
             .catch(error => {
                 //TODO: Error handling
+                if (error.response) {
+                    const { response } = error;
+                    const { data }  = response;
+                    const { message } = data;
+
+                    setError(message);
+                }
             });
     }
 
@@ -123,6 +133,11 @@ function Deployment({ project }) {
     return (
         <React.Fragment>
             <Section title="Deployment status">
+                {
+                    error ?
+                    <Alert severity="error">{ error }</Alert> :
+                    null
+                }
                 {
                     deployment ? 
                     <React.Fragment>

@@ -8,8 +8,8 @@ function Summary(props) {
     return (
         <React.Fragment>
             <Section title="Description">
-                    <p>{ props.project.description }</p>
-                </Section>
+                <p>{ props.project.description }</p>
+            </Section>
 
             <Section title="Data">
                 <DataTable 

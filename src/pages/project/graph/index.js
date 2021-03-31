@@ -1,10 +1,7 @@
 import React from "react";
-import * as d3 from "d3";
-import useD3 from "./hook";
 import PropTypes from "prop-types";
 import SolutionBarChart from "./bargraph";
 import { Grid } from "@material-ui/core";
-import MediumHeading from "../../../components/typography/mediumheading";
 import PurpleSubHeading from "../../../components/typography/purplesubheading";
 
 

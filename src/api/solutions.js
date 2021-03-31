@@ -2,11 +2,18 @@ import axios from "axios";
 import {
     ROOT_URL
 } from "./config";
+import auth from "../authentication";
 
 
 export function getSolutionWithId(projectId, solutionId) {
     return axios.get(
-        ROOT_URL + `/projects/${projectId}/solutions/${solutionId}`
+        ROOT_URL + `/projects/${projectId}/solutions/${solutionId}`,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${auth.getToken()}`
+            }
+        }
     );
 }
 
@@ -18,6 +25,11 @@ export function getSolutionsWithIds(projectId, solutionIds) {
 export function createSolution(projectId, args) {
     return axios.post(
         ROOT_URL + `/projects/${projectId}/solutions`,
-        args
+        args,
+        {
+            headers: {
+                "Authorization": `Bearer ${auth.getToken()}`
+            }
+        }
     );
 }
