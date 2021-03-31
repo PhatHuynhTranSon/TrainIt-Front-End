@@ -70,7 +70,7 @@ function SignUpPage(props) {
 
     return (
         logInSuccessfully ? 
-        <Redirect to="/" /> :
+        <Redirect to="/hub/dashboard" /> :
         <Background>
             <AuthenticationPanel>
                 <MediumHeading>Log in to Trainee</MediumHeading>

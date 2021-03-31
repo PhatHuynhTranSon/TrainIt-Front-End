@@ -5,25 +5,21 @@ import {
     Route
 } from "react-router-dom";
 
-import HomePage from "./pages/home";
 import SignUpPage from "./pages/authentication/SignUpPage";
 import LogInPage from "./pages/authentication/LoginPage";
 import ProjectDetails from "./pages/project/details";
 
 import GlobalStyle from './components/styles/global';
 import PrivateRoute from "./router/privateroute";
+import PersonalHub from "./pages/hub";
 function App() {
   return (
     <React.Fragment>
         <GlobalStyle/>
         <Router>
             <Switch>
-                <PrivateRoute path="/" exact>
-                    <HomePage />
-                </PrivateRoute>
-
-                <PrivateRoute path="/projects/:id">
-                    <ProjectDetails />
+                <PrivateRoute path="/hub">
+                    <PersonalHub />
                 </PrivateRoute>
 
                 <Route path="/signup">
@@ -32,6 +28,10 @@ function App() {
 
                 <Route path="/login">
                     <LogInPage />
+                </Route>
+
+                <Route exact path="/">
+                    <h1>Home</h1>
                 </Route>
             </Switch>
         </Router>

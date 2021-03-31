@@ -10,15 +10,15 @@ import SlidingPanel from '../../components/slidingpanel';
 import { Heading, SmallHeading, SubHeading } from "../../components/typography";
 import { CloseIcon } from "../../components/icon";
 
-import ProjectNameSection from "../../pages/home/projectnamesection";
-import ProjectDescSection from "../../pages/home/projectdescriptionsection";
-import ProjectTypeSection from "../../pages/home/projecttypesection";
-import ProjectDataSection from "../../pages/home/projectdatasection";
+import ProjectNameSection from "./projectnamesection";
+import ProjectDescSection from "./projectdescriptionsection";
+import ProjectTypeSection from "./projecttypesection";
+import ProjectDataSection from "./projectdatasection";
 import Loading from "../../components/loading";
 
 import { createProject as createMLProject } from "../../api";
 
-function HomePage() {
+function ProjectCreation() {
   const [open, setOpen] = React.useState(false);
 
   //Project info
@@ -146,4 +146,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default ProjectCreation;

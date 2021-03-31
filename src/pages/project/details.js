@@ -14,7 +14,7 @@ import SolutionDetails from "./solutions";
 import Deployment from "./deployment";
 
 const ProjectDetailsWrapperStyle = styled.div`
-    padding: 2rem;
+
 `;
 
 

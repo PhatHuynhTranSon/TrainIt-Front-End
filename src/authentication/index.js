@@ -7,9 +7,12 @@ class Authentication {
         localStorage.removeItem("access_token");
     }
 
+    getToken() {
+        return localStorage.getItem("access_token");
+    }
+
     isLoggedIn() {
         const token = localStorage.getItem("access_token");
-        console.log(token);
         return token;
     }
 }
