@@ -4,6 +4,7 @@ import { getSolutionsWithIds, createSolution } from "./solutions";
 import { getDeployment, deploy, undeploy } from "./deployment";
 import { predictOnline } from "./prediction";
 import { signUp, logIn } from "./authentication";
+import { processOrder, getTokens } from "./payment";
 
 
 export {
@@ -19,5 +20,7 @@ export {
     undeploy,
     predictOnline,
     signUp,
-    logIn
+    logIn,
+    processOrder,
+    getTokens
 }

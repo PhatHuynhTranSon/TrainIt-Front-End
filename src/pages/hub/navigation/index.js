@@ -38,9 +38,9 @@ function Navigation(props) {
                     <ListItemIcon><Dashboard /></ListItemIcon>
                     <ListItemText primary="Dashboard"/>
                 </ListItem>
-                <ListItem button component={Link} to="/hub/profile">
+                <ListItem button component={Link} to="/hub/tokens">
                     <ListItemIcon><SupervisedUserCircle /></ListItemIcon>
-                    <ListItemText primary="Profile"/>
+                    <ListItemText primary="Tokens"/>
                 </ListItem>
             </List>
         </Drawer>
