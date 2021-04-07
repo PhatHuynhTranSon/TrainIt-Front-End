@@ -15,11 +15,11 @@ import { getTokens } from "../../api/payment";
 import Loading from "../../components/loading";
 
 function Tokens() {
-    const [tokens, setTokens] = React.useState(-1);
+    const [tokens, setTokens] = React.useState(0);
     const [successMessage, setSuccessMessage] = React.useState();
     const [errorMessage, setErrorMessage] = React.useState();
     const [tokenErrorMessage, setTokenErrorMessage] = React.useState();
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         retrieveTokens();
@@ -33,13 +33,12 @@ function Tokens() {
                 const { data } = response;
                 const { tokens } = data;
                 setTokens(tokens);
-                setLoading(false);
             })
             .catch(error => {
                 //TODO: Error handling
                 setTokenErrorMessage("Can not retrieve tokens");
-                setLoading(false);
-            });
+            })
+            .finally(() => setLoading(false)); 
     }
 
     function onPurchaseSuccessful() {

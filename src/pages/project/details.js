@@ -12,6 +12,7 @@ import { MyTabPanel } from "../../components/tab";
 import Summary from "./summary";
 import SolutionDetails from "./solutions";
 import Deployment from "./deployment";
+import LoadingPage from "../loading";
 
 const ProjectDetailsWrapperStyle = styled.div`
 
@@ -70,7 +71,7 @@ function ProjectDetails(props) {
                 <Deployment project={projectDetails.project}/>
             </MyTabPanel>
         </ProjectDetailsWrapperStyle>
-        : null
+        : <LoadingPage />
     )
 }
 

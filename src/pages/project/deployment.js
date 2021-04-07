@@ -59,6 +59,7 @@ function Deployment({ project }) {
     //Inner state
     const [deployment, setDeployment] = React.useState(null);
     const [error, setError] = React.useState(null);
+    const [loadingMessage, setLoadingMessage] = React.useState(null);
 
     //Refs
     const intervalId = React.useRef(null);
@@ -73,7 +74,7 @@ function Deployment({ project }) {
         updateDeployment();
         intervalId.current = setInterval(() => {
             updateDeployment();
-        }, 50000);
+        }, 200000);
     }
 
     function stopDeploymentInterval() {
@@ -102,6 +103,7 @@ function Deployment({ project }) {
     }
 
     function deployModel() {
+        setLoadingMessage("Calling endpoints");
         deploy(project.id)
             .then(response => {
                 //Successfully deploy model
@@ -116,10 +118,13 @@ function Deployment({ project }) {
 
                     setError(message);
                 }
-            });
+                setLoadingMessage(null);
+            })
+            .finally(() => setLoadingMessage(null));
     }
 
     function undeployModel() {
+        setLoadingMessage("Undeploying model");
         undeploy(project.id)
             .then(response => {
                 //Successfully deploy model
@@ -127,29 +132,36 @@ function Deployment({ project }) {
             })
             .catch(error => {
                 //TODO: Error handling
-            });
+            })
+            .finally(() => setLoadingMessage(null));
     }
 
     return (
         <React.Fragment>
             <Section title="Deployment status">
                 {
-                    error ?
-                    <Alert severity="error">{ error }</Alert> :
-                    null
-                }
-                {
-                    deployment ? 
-                    <React.Fragment>
-                    {
-                        deployment.deployed ? 
-                        <DeployedModel 
-                            deployment={deployment}
-                            onUndeployModel={undeployModel}/> : 
-                        <UndeployedModel onDeployChosen={deployModel}/>
-                    }
-                    </React.Fragment> :
-                    <Loading label="Loading deployments"/>
+                    loadingMessage ? 
+                    <Loading label={loadingMessage}/> :
+                    <>
+                        {
+                            error ?
+                            <Alert severity="error">{ error }</Alert> :
+                            null
+                        }
+                        {
+                            deployment ? 
+                            <React.Fragment>
+                            {
+                                deployment.deployed ? 
+                                <DeployedModel 
+                                    deployment={deployment}
+                                    onUndeployModel={undeployModel}/> : 
+                                <UndeployedModel onDeployChosen={deployModel}/>
+                            }
+                            </React.Fragment> :
+                            <Loading label="Loading deployments"/>
+                        }
+                    </>
                 }
             </Section>
 

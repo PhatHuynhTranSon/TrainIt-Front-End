@@ -10,7 +10,7 @@ import StyledTableCell from "../../../components/table";
 import Section from "../section";
 
 import { getProjectDetails } from "../../../api";
-import { TextField } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import { InvertedButton } from "../../../components/button";
 import { Width50 } from "../../../components/position";
 import PredictionBox from "./predictionbox";
@@ -56,6 +56,7 @@ function Prediction({ deployment }) {
     const [columns, setColumns] = React.useState([]);
     const [values, setValues] = React.useState([]);
     const [prediction, setPrediction] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
         getColumns();
@@ -99,6 +100,9 @@ function Prediction({ deployment }) {
 
     function onPredictionClicked() {
         const parsedValues = parseValues(values);
+
+        setLoading(true);
+
         predictOnline(deployment.project_id, parsedValues)
             .then(response => {
                 const { data } = response;
@@ -108,7 +112,8 @@ function Prediction({ deployment }) {
             .catch(error => {
                 //TODO: Error Handling
                 const { data } = error.response;
-            });
+            })
+            .finally(() => setLoading(false));
     }
 
     function parseValues(vals) {
@@ -127,24 +132,29 @@ function Prediction({ deployment }) {
 
     return (
         <Section title="Online prediction">
-            <Width50>
-                {
-                    columns ? 
-                    <React.Fragment>
-                        <ValueTable 
-                            columns={columns}
-                            values={values}
-                            onValueChanged={onValueChanged}/>
-                        <InvertedButton 
-                            width="100%"
-                            onClick={onPredictionClicked}>
-                            Make prediction
-                        </InvertedButton>
-                        <PredictionBox prediction={prediction}/>
-                    </React.Fragment> :
-                    null
-                }
-            </Width50>
+            {
+                columns ? 
+                <React.Fragment>
+                    <Grid container>
+                        <Grid item xs={6}>
+                            <ValueTable 
+                                columns={columns}
+                                values={values}
+                                onValueChanged={onValueChanged}/>
+                            <InvertedButton 
+                                width="100%"
+                                onClick={onPredictionClicked}>
+                                Make prediction
+                            </InvertedButton>
+                        </Grid>
+                        
+                        <Grid item xs={6}>
+                            <PredictionBox loading={loading} prediction={prediction}/>
+                        </Grid>
+                    </Grid>
+                </React.Fragment> :
+                null
+            }
         </Section>
     );
 }
