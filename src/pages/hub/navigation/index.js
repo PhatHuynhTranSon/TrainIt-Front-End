@@ -1,5 +1,5 @@
 import { Drawer, List, ListItemIcon, ListItemText, ListItem, Typography, makeStyles, Divider } from "@material-ui/core";
-import { CreateNewFolder, Dashboard, Notes, SupervisedUserCircle } from "@material-ui/icons";
+import { CreateNewFolder, Dashboard, MenuBook, Notes, SupervisedUserCircle } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
@@ -30,13 +30,17 @@ function Navigation(props) {
                     <ListItemIcon><CreateNewFolder /></ListItemIcon>
                     <ListItemText primary="Create projects"/>
                 </ListItem>
-                <ListItem button component={Link} to="/hub/notebooks">
+                <ListItem button component={Link} to="/hub/createnotebooks">
                     <ListItemIcon><Notes /></ListItemIcon>
                     <ListItemText primary="Create notebooks"/>
                 </ListItem>
                 <ListItem button  component={Link} to="/hub/dashboard">
                     <ListItemIcon><Dashboard /></ListItemIcon>
                     <ListItemText primary="Dashboard"/>
+                </ListItem>
+                <ListItem button component={Link} to="/hub/notebooks">
+                    <ListItemIcon><MenuBook /></ListItemIcon>
+                    <ListItemText primary="All notebooks"/>
                 </ListItem>
                 <ListItem button component={Link} to="/hub/tokens">
                     <ListItemIcon><SupervisedUserCircle /></ListItemIcon>

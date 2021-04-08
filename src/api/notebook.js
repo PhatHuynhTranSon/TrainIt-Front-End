@@ -1,0 +1,54 @@
+import axios from "axios";
+import auth from "../authentication";
+import { ROOT_URL } from "./config";
+
+
+export const createNotebook = async (name) => {
+    const response = await axios.post(
+        ROOT_URL + "/notebooks",
+        {
+            name
+        },
+        {
+            "headers": {
+                "Authorization": `Bearer ${auth.getToken()}`
+            }
+        }
+    )
+    .then(response => response.data);
+
+    return response;
+}
+
+export const getAllNotebookId = async () => {
+    const ids = await axios.get(
+        ROOT_URL + "/notebooks",
+        {
+            "headers": {
+                "Authorization": `Bearer ${auth.getToken()}`
+            }
+        }
+    )
+    .then(response => response.data)
+    .then(data => data.notebook_ids);
+
+    return ids;
+}
+
+export const getNotebookWithId = async (id) => {
+    const notebooks = await axios.get(
+        ROOT_URL + `/notebooks/${id}`,
+        {
+            "headers": {
+                "Authorization": `Bearer ${auth.getToken()}`
+            }
+        }
+    )
+    .then(response => response.data);
+    return notebooks;
+}
+
+export const getNoteBooksWithIds = async (ids) => {
+    const promises = ids.map(id => getNotebookWithId(id));
+    return await Promise.all(promises);
+}

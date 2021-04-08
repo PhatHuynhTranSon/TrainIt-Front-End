@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core";
 import { useRouteMatch, Switch, Route } from "react-router";
 import ProjectDetails from "../project/details";
 import Tokens from "./tokens";
+import NotebookCreation from "../notebookcreation";
+import AllNotebooks from "./allnotebooks";
 
 const drawerWidth = 240;
 
@@ -43,6 +45,14 @@ function PersonalHub() {
 
                 <Route path="/hub/tokens">
                     <Tokens />
+                </Route>
+
+                <Route path="/hub/createnotebooks">
+                    <NotebookCreation />
+                </Route>
+
+                <Route path="/hub/notebooks">
+                   <AllNotebooks />
                 </Route>
             </div>
         </React.Fragment>

@@ -38,7 +38,7 @@ function Dashboard(props) {
                         projects.length > 0 ? 
                         <React.Fragment>
                         {
-                            projects.map((project, index) => <Grid xs={4} key={index}><ProjectCard project={project}/></Grid>)
+                            projects.map((project, index) => <Grid item xs={4} key={index}><ProjectCard project={project}/></Grid>)
                         }
                         </React.Fragment> 
                         : null
