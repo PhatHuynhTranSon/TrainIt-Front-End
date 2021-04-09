@@ -19,7 +19,7 @@ const AllNotebooks = () => {
 
     //On mount -> intialize
     React.useEffect(async () => {
-        intialize();
+        initialize();
 
         //Stop interval on unmount
         return () => {
@@ -29,7 +29,7 @@ const AllNotebooks = () => {
 
 
     //Method to intiialize notebooks getting process
-    const intialize = async () => {
+    const initialize = async () => {
         //Set loading to true
         setLoading(true);
 
@@ -68,7 +68,8 @@ const AllNotebooks = () => {
         //Remove from ids all solutions whose state has been completed
         const onGoingNotebooks = merged.filter(notebook => !isTerminalState(notebook.status));
         if (onGoingNotebooks.length === 0) {
-            //No more on going -> Stop retrieving\
+            //No more on going -> Stop retrieving
+            console.log("stopped");
             stopRetrievingNotebooks();
         }
 
@@ -105,6 +106,11 @@ const AllNotebooks = () => {
         return sorted;
     }
 
+    //Event handler
+    const onCardActionPerformed = () => {
+        initialize();
+    }
+
     //Card
     return (
         <Padding padding="3rem">
@@ -116,7 +122,11 @@ const AllNotebooks = () => {
                 <Loading label="Loading notebooks"/> : 
                 <>
                 {
-                    notebooks.map((notebook, index) => <NotebookCard notebook={notebook} key={index}/>)
+                    notebooks.map((notebook, index) => 
+                        <NotebookCard 
+                            notebook={notebook} 
+                            key={index} 
+                            onActionPerformed={onCardActionPerformed}/>)
                 }
                 </>
             }

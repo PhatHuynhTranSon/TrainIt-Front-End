@@ -26,7 +26,6 @@ const StateLoadingStyle = styled.div`
     border-radius: 50%;
     border: 5px solid #e9c46a;
     border-top: 5px solid transparent;
-    font-size: 1rem;
     text-align: center;
     color: #515151;
     line-height: 9.5rem;
@@ -47,7 +46,7 @@ const StateLoadingTextStyle = styled.p`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-40%, -50%);
 `;
 
 const YellowCircle = ({ status }) => {
