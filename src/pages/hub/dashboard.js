@@ -4,6 +4,7 @@ import { getAllProjects } from "../../api";
 import { MarginTopLarge } from "../../components/position";
 import Padding from "../../components/spacing/padding";
 import MediumHeading from "../../components/typography/mediumheading";
+import NoProjectMessage from "./noprojects";
 import ProjectCard from "./project/projectcard";
 
 
@@ -41,7 +42,7 @@ function Dashboard(props) {
                             projects.map((project, index) => <Grid item xs={4} key={index}><ProjectCard project={project}/></Grid>)
                         }
                         </React.Fragment> 
-                        : null
+                        : <NoProjectMessage />
                     }
                     </Grid>
                 </MarginTopLarge>

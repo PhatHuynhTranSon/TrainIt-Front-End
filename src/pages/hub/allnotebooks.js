@@ -3,9 +3,9 @@ import { getAllNotebookId, getNoteBooksWithIds } from "../../api/notebook";
 import Loading from "../../components/loading";
 import Padding from "../../components/spacing/padding";
 import MediumHeading from "../../components/typography/mediumheading";
-import { Grid } from "@material-ui/core";
 import NotebookCard from "./notebook/notebookcard";
 import { MarginTopLarge } from "../../components/position";
+import NoNotebookMessage from "./nonotebooks";
 
 const AllNotebooks = () => {
     //Refs
@@ -122,11 +122,14 @@ const AllNotebooks = () => {
                 <Loading label="Loading notebooks"/> : 
                 <>
                 {
+                    notebooks.length > 0 ?
                     notebooks.map((notebook, index) => 
                         <NotebookCard 
                             notebook={notebook} 
                             key={index} 
                             onActionPerformed={onCardActionPerformed}/>)
+                    : <NoNotebookMessage />
+
                 }
                 </>
             }

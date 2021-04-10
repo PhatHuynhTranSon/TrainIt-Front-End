@@ -114,7 +114,7 @@ function ProjectCreation() {
   return (
     <Background>
       <Heading>
-        Welcome to TrainIT
+        Welcome to Trainee
       </Heading>
 
       <SubHeading>
@@ -137,7 +137,7 @@ function ProjectCreation() {
 
         { 
           isProjectUploaded ?
-          <Redirect to={`/projects/${projectRef.current.project.id}`}/> : 
+          <Redirect to={`/hub/projects/${projectRef.current.project.id}`}/> : 
           (isUploadingProject ? <Loading label="Creating project"/> : getCurrentSection()) 
         }
       </SlidingPanel>
