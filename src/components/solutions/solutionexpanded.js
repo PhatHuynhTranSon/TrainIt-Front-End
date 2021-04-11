@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { MarginTopLarge } from "../position";
+import { MarginTopLarge, MarginTopSmall } from "../position";
 import ParameterTable from "../table/parametertable";
 import MetricsTable from "../table/metrictable";
 import SolutionState from "../state";
+import InvertedButton from "../button/invertedbutton";
+import { getSolutionUrl } from "../../api/solutions";
 
 const SolutionName = styled.h3`
     font-size: 2rem;
@@ -30,6 +32,20 @@ function SolutionExpandedDetails(props) {
 
     function isSolutionCompleted() {
         return solution.secondary_status === "Completed";
+    }
+
+    async function onDownloadButtonClicked() {
+        //Make api call
+        const projectId = solution.solution.project_id;
+        const solutionId = solution.solution.id;
+        const url = await getSolutionUrl(projectId, solutionId);
+
+        //Redirect
+        redirect(url);
+    }
+
+    function redirect(url) {
+        window.location.href = url;
     }
 
     function extractMetrics(solution) {
@@ -63,6 +79,17 @@ function SolutionExpandedDetails(props) {
                     <MetricsTable metrics={extractMetrics(solution)}/> :
                     <SolutionState label={ solution.secondary_status }/>
                 }
+            </MarginTopLarge>
+
+            <MarginTopLarge>
+                <DetailName>Download</DetailName>
+                <MarginTopSmall>
+                {
+                    isSolutionCompleted() ?
+                    <InvertedButton width="100%" onClick={onDownloadButtonClicked}>Download model</InvertedButton> :
+                    null
+                }
+                </MarginTopSmall>
             </MarginTopLarge>
         </React.Fragment>
     )

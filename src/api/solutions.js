@@ -33,3 +33,18 @@ export function createSolution(projectId, args) {
         }
     );
 }
+
+export const getSolutionUrl = async(projectId, solutionId) => {
+    const url = await axios.get(
+        ROOT_URL + `/projects/${projectId}/solutions/${solutionId}/download`,
+        {
+            headers: {
+                "Authorization": `Bearer ${auth.getToken()}`
+            }
+        }
+    )
+    .then(response => response.data)
+    .then(data => data.url);
+
+    return url;
+}
