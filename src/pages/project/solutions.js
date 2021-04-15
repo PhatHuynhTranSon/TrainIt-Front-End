@@ -16,8 +16,7 @@ import ClassificationSolutionCreation from "./models/classification/classificati
 import Loading from "../../components/loading";
 import RegressionSolutionCreation from "./models/regression/regressionsolutions";
 import Graphs from "./graph";
-import MediumHeading from "../../components/typography/mediumheading";
-import { MarginTopLarge, MarginTopSmall } from "../../components/position";
+import { MarginTopSmall } from "../../components/position";
 import Padding from "../../components/spacing/padding";
 import { Alert } from "@material-ui/lab";
 
@@ -30,6 +29,9 @@ function SolutionDetails(props) {
     const previousSolutions = React.useRef([]);
     const [solutions, setSolutions] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
+
+    //Error
+    const [error, setError] = React.useState();
 
     //Solution creation
     const [isSlidingPanelOpen, setSlidingPanelOpen] = React.useState(false);
@@ -141,6 +143,7 @@ function SolutionDetails(props) {
         //Close sliding panel
         setSlidingPanelOpen(false);
         //TODO: Display error
+        setError(error);
     }
 
     function filterForCompletedSolution() {
@@ -153,32 +156,43 @@ function SolutionDetails(props) {
 
     return (
         <React.Fragment>
-            <Section title="Visualization">
-                <Padding padding="10px">
-                {
-                    loading ? 
-                    <Loading label="Retrieving graphs"/> : 
-                    (
-                        completedSolutions.length > 0 ?
-                        <Graphs type={project.type} solutions={solutions}/> :
-                        <Alert severity="warning">No models have been trained</Alert>
-                    )
-                }
-                </Padding>
-            </Section>
+            {
+                <Section title="Visualization">
+                    <Padding padding="10px">
+                    {
+                        loading ? 
+                        <Loading label="Retrieving graphs"/> : 
+                        (
+                            completedSolutions.length > 0 ?
+                            <Graphs type={project.type} solutions={solutions}/> :
+                            <Alert severity="warning">No models have been trained</Alert>
+                        )
+                    }
+                    </Padding>
+                </Section>
+            }
 
             <Section title="Models">
-                <InvertedButton
-                    onClick={onButtonClick}>Create a solution</InvertedButton>
-                <MarginTopSmall>
                 {
-                    loading ? 
-                    <Loading label="Retrieving solutions"/> :
-                    (solutions && solutions.length > 0 ? <Solutions solutions={solutions}/> : <Alert severity="warning">No models have been trained</Alert>)//TODO: Loading state
+                    error ?
+                    <Alert severity="error">{ error.message }</Alert> : null
                 }
+                <MarginTopSmall>
+                    <InvertedButton
+                        onClick={onButtonClick}>Create a solution</InvertedButton>
                 </MarginTopSmall>
+                {
+                    <MarginTopSmall>
+                    {
+                        loading ? 
+                        <Loading label="Retrieving solutions"/> :
+                        (solutions && solutions.length > 0 ? <Solutions solutions={solutions}/> : <Alert severity="warning">No models have been trained</Alert>)//TODO: Loading state
+                    }
+                    </MarginTopSmall>
+                }
+                
             </Section>
-
+            
             <SlidingPanel
                 open={isSlidingPanelOpen}
                 onClose={() => {}}>

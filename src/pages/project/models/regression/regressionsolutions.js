@@ -9,6 +9,7 @@ import { createSolution } from "../../../../api";
 import Loading from "../../../../components/loading";
 import LinearRegressionModel from "./linearregression";
 import DecisionTreeModel from "./decisiontree";
+import ElasticNetModel from "./elasticnet";
 
 const OuterWrapper = styled.div`
     padding: 3rem 0;
@@ -69,6 +70,7 @@ function RegressionSolutionCreation(props) {
                 setLoading(false);
             })
             .catch(error => {
+                //Propagate error message
                 const errorMessage = error.response.data;
                 onError(errorMessage);
 
@@ -93,7 +95,7 @@ function RegressionSolutionCreation(props) {
                 <Grid container>
                     <Grid item xs={2}>
                         <MyVerticalTabs 
-                            headers={["Linear Regression", "Decission Tree", "XGBoost"]}
+                            headers={["Linear Regression", "Decission Tree", "Elastic Net"]}
                             value={value}
                             handleChange={switchTab}/>
                     </Grid>
@@ -115,7 +117,8 @@ function RegressionSolutionCreation(props) {
 
                         <MyTabPanel value={value} index={2}>
                             <InnerWrapper>
-                                
+                                <ElasticNetModel 
+                                    onSubmitted={onSubmitted}/>
                             </InnerWrapper>
                         </MyTabPanel>
                     </Grid>
