@@ -47,7 +47,7 @@ const AllNotebooks = () => {
         getNotebooks();
         intervalId.current = setInterval(() => {
             getNotebooks();
-        }, 100000);
+        }, 50000);
     }
 
     const stopRetrievingNotebooks = () => {
@@ -57,7 +57,6 @@ const AllNotebooks = () => {
     }
 
     const getNotebooks = async () => {
-        console.log("run");
         //Get notebooks of all ids
         const notebooks = await getNoteBooksWithIds(notebookIds.current);
 
@@ -69,7 +68,6 @@ const AllNotebooks = () => {
         const onGoingNotebooks = merged.filter(notebook => !isTerminalState(notebook.status));
         if (onGoingNotebooks.length === 0) {
             //No more on going -> Stop retrieving
-            console.log("stopped");
             stopRetrievingNotebooks();
         }
 

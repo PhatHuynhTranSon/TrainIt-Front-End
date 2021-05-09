@@ -36,7 +36,7 @@ function Navigation(props) {
                 </ListItem>
                 <ListItem button  component={Link} to="/hub/dashboard">
                     <ListItemIcon><Dashboard /></ListItemIcon>
-                    <ListItemText primary="Dashboard"/>
+                    <ListItemText primary="All projects"/>
                 </ListItem>
                 <ListItem button component={Link} to="/hub/notebooks">
                     <ListItemIcon><MenuBook /></ListItemIcon>

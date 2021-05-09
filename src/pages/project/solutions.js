@@ -113,7 +113,7 @@ function SolutionDetails(props) {
     }
 
     function startRetrievingSolutions() {
-        const id = setInterval(getSolutionDetails, 60000);
+        const id = setInterval(getSolutionDetails, 50000);
         intervalId.current = id;
     }
 
