@@ -54,9 +54,6 @@ function SignUpPage(props) {
         if (password !== confirmPassword) {
             setErrorMessage("Password and confirm password do not match")
         } else {
-            console.log(username);
-            console.log(email);
-            console.log(password);
             signUp(username, email, password)
                 .then(response => {
                     //Successfull -> Redirect

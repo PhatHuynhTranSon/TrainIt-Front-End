@@ -57,7 +57,6 @@ function SignUpPage(props) {
 
                 //Redirect
                 setLogInSuccessfully(true);
-                console.log("Success");
             })
             .catch(error => {
                 //Display error
