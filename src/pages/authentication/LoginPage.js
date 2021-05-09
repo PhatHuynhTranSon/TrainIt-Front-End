@@ -1,5 +1,5 @@
 import { InputAdornment, makeStyles, TextField } from "@material-ui/core";
-import { AccountCircle, Email, Lock } from "@material-ui/icons";
+import { Email, Lock } from "@material-ui/icons";
 import React from "react";
 import Background from "../../components/background";
 import { InvertedButton } from "../../components/button";
@@ -15,6 +15,7 @@ import auth from "../../authentication";
 import { Redirect } from "react-router";
 
 import Alert from "@material-ui/lab/Alert";
+import AuthMessage from "./signupmessage";
 
 
 const useStyles = makeStyles({
@@ -71,7 +72,7 @@ function SignUpPage(props) {
     return (
         logInSuccessfully ? 
         <Redirect to="/hub/dashboard" /> :
-        <Background>
+        <Background dark>
             <AuthenticationPanel>
                 <MediumHeading>Log in to Trainee</MediumHeading>
 
@@ -114,6 +115,13 @@ function SignUpPage(props) {
                                 </InputAdornment>
                             )
                         }}/>
+                </MarginTopSmall>
+
+                <MarginTopSmall>
+                    <AuthMessage 
+                        message="Don't have an account ? "
+                        linktext="Sign up"
+                        linkto="/signup"/>
                 </MarginTopSmall>
 
                 <MarginTopSmall>

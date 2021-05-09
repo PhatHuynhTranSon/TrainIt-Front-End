@@ -8,8 +8,8 @@ import MediumHeading from "../../components/typography/mediumheading";
 import AuthenticationPanel from "./panel";
 import Alert from "@material-ui/lab/Alert"
 import { signUp } from "../../api";
-
 import { Redirect } from "react-router-dom";
+import AuthMessage from "./signupmessage";
 
 const useStyles = makeStyles({
     textfield: {
@@ -80,7 +80,7 @@ function SignUpPage(props) {
             signUpSuccessful ? 
             <Redirect to="/login"/> :
             (
-                <Background>
+                <Background dark>
                     <AuthenticationPanel>
                         <MediumHeading>Sign up to Trainee</MediumHeading>
 
@@ -154,6 +154,13 @@ function SignUpPage(props) {
                                         </InputAdornment>
                                     )
                                 }}/>
+                        </MarginTopSmall>
+
+                        <MarginTopSmall>
+                            <AuthMessage 
+                                message="Already have an account ? "
+                                linktext="Log in"
+                                linkto="/login"/>
                         </MarginTopSmall>
 
                         <MarginTopLarge>
