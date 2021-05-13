@@ -4,14 +4,13 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-
 import SignUpPage from "./pages/authentication/SignUpPage";
 import LogInPage from "./pages/authentication/LoginPage";
-import ProjectDetails from "./pages/project/details";
-
 import GlobalStyle from './components/styles/global';
 import PrivateRoute from "./router/privateroute";
 import PersonalHub from "./pages/hub";
+import HomePage from "./pages/home";
+
 function App() {
   return (
     <React.Fragment>
@@ -31,7 +30,7 @@ function App() {
                 </Route>
 
                 <Route exact path="/">
-                    <h1>Home</h1>
+                    <HomePage />
                 </Route>
             </Switch>
         </Router>
