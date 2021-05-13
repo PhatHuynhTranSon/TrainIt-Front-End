@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     logo: {
         textAlign: "center",
         fontWeight: "700",
-        fontFamily: "Poppins",
+        fontFamily: "Raleway",
         padding: "20px",
         color: "#7209b7"
     }
