@@ -1,12 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import Header from "./header";
+
 
 const HomePage = () => {
     return (
-        <main>
-            <h1>Hello World</h1>
-        </main>
+        <>
+            <Header />
+        </>
     )
-}
+}   
 
 export default HomePage;
