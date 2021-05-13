@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         font-size: 1.2rem;
-        font-family: 'Poppins', sans-seriff;
+        font-family: 'Raleway', sans-seriff;
     }
 `;
 
